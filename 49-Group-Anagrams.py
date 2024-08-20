@@ -1,10 +1,11 @@
+import collections
+
 class Solution:
     def groupAnagrams(self, strs: list[str]) -> list[list[str]]:
-        hashMap = {}
+        hashMap = collections.defaultdict(list)
         for word in strs:
-            sortedWord = "".join(sorted(word))
-            if sortedWord not in hashMap:
-                hashMap[sortedWord] = [word]
-            else:
-                hashMap[sortedWord].append(word)
-        return list(hashMap.values())
+            count = [0] * 26
+            for char in word:
+                count[ord(char) - ord("a")] += 1
+            hashMap[tuple(count)].append(word)
+        return hashMap.values()
