@@ -1,18 +1,24 @@
 func minOperations(boxes string) []int {
-	result := make([]int, len(boxes))
+    n := len(boxes)
+    result := make([]int, n)
 
-	for i := 0; i < len(boxes); i++ {
-		acc := 0
-		for j := 0; j < len(boxes); j++ {
-			if i == j {
-				continue
-			}
-			if boxes[j] == '1' {
-				acc += int(math.Abs(float64((i - j))))
-			}
-		}
-		result[i] = acc
-	}
+    leftCount, leftSum := 0, 0
+    for i := 0; i < n; i++ {
+        result[i] += leftSum
+        if boxes[i] == '1' {
+            leftCount++
+        }
+        leftSum += leftCount
+    }
 
-	return result
+    rightCount, rightSum := 0, 0
+    for i := n - 1; i >= 0; i-- {
+        result[i] += rightSum
+        if boxes[i] == '1' {
+            rightCount++
+        }
+        rightSum += rightCount
+    }
+
+    return result
 }
