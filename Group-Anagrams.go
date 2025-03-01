@@ -1,30 +1,16 @@
-func sortString(s string) string {
-\trunes := []byte(s)
-\tresult := make([]byte, len(s))
-\tcopy(result, runes)
-\tsort.Slice(result, func(i, j int) bool {
-\t\treturn result[i] < result[j]
-\t})
-
-\treturn string(result)
-}
-
 func groupAnagrams(strs []string) [][]string {
-\tfreq := make(map[string][]string)
-\tresult := [][]string{}
-\tfor _, value := range strs {
-\t\tsortedString := sortString(value)
-\t\tarr, ok := freq[sortedString]
-\t\tif !ok {
-\t\t\tnewAnagram := []string{value}
-\t\t\tfreq[sortedString] = newAnagram
-\t\t\tcontinue
+\tfreq := make(map[[26]int][]string)
+\tfor _, innerStr := range strs {
+\t\tarr := [26]int{}
+\t\tfor _, char := range innerStr {
+\t\t\tarr[char-'a']++
 \t\t}
-\t\tarr = append(arr, value)
-\t\tfreq[sortedString] = arr
+\t\tfreq[arr] = append(freq[arr], innerStr)
 \t}
+
+\tres := [][]string{}
 \tfor _, value := range freq {
-\t\tresult = append(result, value)
+\t\tres = append(res, value)
 \t}
-\treturn result
+\treturn res
 }
