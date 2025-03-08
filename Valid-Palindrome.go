@@ -1,30 +1,29 @@
-func clean(s []byte) string {
-\tj := 0
-\tfor _, b := range s {
-\t\tif 'a' <= b && b <= 'z' ||
-\t\t\t'A' <= b && b <= 'Z' ||
-\t\t\t'0' <= b && b <= '9' {
-\t\t\ts[j] = b
-\t\t\tj++
+func removeNonAlphanumeric(s string) string {
+\tnewString := []byte{}
+\tfor i := 0; i < len(s); i++ {
+\t\tif 'a' <= s[i] && s[i] <= 'z' ||
+\t\t\t'A' <= s[i] && s[i] <= 'Z' ||
+\t\t\t'0' <= s[i] && s[i] <= '9' {
+\t\t\tnewString = append(newString, s[i])
 \t\t}
 \t}
-\treturn strings.ToLower(string(s[:j]))
+
+\treturn strings.ToLower(string(newString))
 }
 
 func isPalindrome(s string) bool {
-\tcleanS := clean([]byte(s))
-\tif len(cleanS) == 0 {
+\tnewString := removeNonAlphanumeric(s)
+\tif len(newString) == 0 {
 \t\treturn true
 \t}
-
-\ti, j := 0, len(cleanS)-1
-\tfor i < j {
-\t\tif cleanS[i] != cleanS[j] {
+\tfmt.Println(len(newString))
+\tleft, right := 0, len(newString)-1
+\tfor left < right {
+\t\tif newString[left] != newString[right] {
 \t\t\treturn false
 \t\t}
-\t\ti++
-\t\tj--
+\t\tleft++
+\t\tright--
 \t}
-
 \treturn true
 }
